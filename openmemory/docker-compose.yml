@@ -18,6 +18,8 @@ services:
       - mem0_store
     command: >
       sh -c "uvicorn main:app --host 0.0.0.0 --port 8765 --workers 4"
+    labels:
+      - coolify.traefik.middlewares=authentik-auth@file
 
   openmemory-ui:
     build:
@@ -27,5 +29,8 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - NEXT_PUBLIC_USER_ID=${USER}
+    labels:
+      - coolify.traefik.middlewares=authentik-auth@file
+      
 volumes:
   mem0_storage:  
