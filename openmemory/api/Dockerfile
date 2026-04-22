@@ -5,7 +5,9 @@ LABEL org.opencontainers.image.name="mem0/openmemory-mcp"
 WORKDIR /usr/src/openmemory
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt \
+    && pip install "mem0ai[nlp]" fastembed \
+    && python -m spacy download en_core_web_sm
 
 COPY config.json .
 COPY . .
