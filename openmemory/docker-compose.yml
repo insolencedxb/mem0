@@ -20,17 +20,7 @@ services:
       sh -c "uvicorn main:app --host 0.0.0.0 --port 8765 --workers 1"
     labels:
     labels:
-      # Default router (all non-MCP traffic): cookie-based Authentik
       - coolify.traefik.middlewares=authentik-auth@file
-      # Additional router for MCP: Bearer-token via oauth2-proxy
-      - traefik.http.routers.memory-mcp.rule=Host(`memory.insocore.com`) && PathPrefix(`/mcp`)
-      - traefik.http.routers.memory-mcp.entrypoints=https
-      - traefik.http.routers.memory-mcp.tls=true
-      - traefik.http.routers.memory-mcp.tls.certresolver=letsencrypt
-      - traefik.http.routers.memory-mcp.priority=500
-      - traefik.http.routers.memory-mcp.middlewares=oauth2-mcp-chain@file
-      - traefik.http.routers.memory-mcp.service=memory-mcp-svc
-      - traefik.http.services.memory-mcp-svc.loadbalancer.server.port=8765 
     
   openmemory-ui:
     build:
