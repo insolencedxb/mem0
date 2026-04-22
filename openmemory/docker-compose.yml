@@ -40,6 +40,8 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - NEXT_PUBLIC_USER_ID=${USER}
+    labels:
+      - coolify.traefik.middlewares=authentik-auth@file
 
 volumes:
   mem0_storage:  
