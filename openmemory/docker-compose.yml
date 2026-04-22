@@ -18,7 +18,7 @@ services:
     depends_on:
       - mem0_store
     command: >
-      sh -c "uvicorn main:app --host 0.0.0.0 --port 8765 --workers 1"
+      sh -c "uvicorn main:app --host 0.0.0.0 --port 8765 --workers 1 --proxy-headers --forwarded-allow-ips='*'"
     labels:
       - coolify.traefik.middlewares=authentik-auth@file
     volumes:
