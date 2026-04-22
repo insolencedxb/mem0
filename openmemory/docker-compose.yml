@@ -12,6 +12,7 @@ services:
     environment:
       - USER
       - API_KEY
+      - DATABASE_URL=sqlite:////data/openmemory.db
     env_file:
       - api/.env
     depends_on:
@@ -19,8 +20,9 @@ services:
     command: >
       sh -c "uvicorn main:app --host 0.0.0.0 --port 8765 --workers 1"
     labels:
-    labels:
       - coolify.traefik.middlewares=authentik-auth@file
+    volumes:
+      -  openmemory_db:/data
     
   openmemory-ui:
     build:
@@ -35,3 +37,4 @@ services:
 
 volumes:
   mem0_storage:  
+  openmemory_db:
